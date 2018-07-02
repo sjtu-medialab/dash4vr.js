@@ -1,0 +1,501 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+<meta charset="UTF-8" />
+<title>last.html</title>
+<style>
+</style>
+ <script src="dash.all.debug.vr.js"></script>
+<script  src="app/lib/jquery/jquery-3.1.1.min.js"></script>
+<script src="app/lib/angular/angular.min.js"></script>
+<script src="app/lib/angular/angular-resource.min.js"></script>
+<script src="app/lib/angular/angular-flot.js"></script>
+
+</head>
+<body ng-controller="DashController">
+    <style>
+        video {
+            /* position: absolute; */
+            width:  640px;
+            height: 640px;
+            
+        }
+            #c{position: absolute;} 
+        .clear{ clear:both}
+    </style>
+    <div style="position: absolute;margin-top:-30px;width:2560px;height:710px;z-index:5;background:white"></div> 
+    <div style="position: absolute;margin-left:-30px;width:720px;height:2560px;z-index:5;background:white"></div>
+    <div style="position: absolute;width:2560px;left:1246px;height:2560px;z-index:5;background:white"></div>
+    <div style="position: absolute;width:2560px;margin-top:1236px;height:2560px;z-index:5;background:white"></div>
+    <div  id="c" style="width:5000px;left:-640px;top:0px;">
+        <div  id="ple1" style=" float:left;z-index:2;">
+            <video id="Player11" ></video></div>
+        <div  id="le1" style=" float:left;z-index:2;">
+            <video  id="Player12"></video></div>
+        <div  id="am1" style=" float:left;z-index:2;">
+            <video   id="Player13" ></video></div>
+        <div  id="ri1" style=" float:left;z-index:2;">
+            <video  id="Player14"></video></div>
+        <div  id="pri1" style=" float:left;z-index:2;">
+            <video id="Player15"></video></div>
+   
+      
+       
+        <div class="clear" ></div> 
+        <div  id="ple2" style=" float:left;margin-top:-5px;z-index:2;">
+            <video  id="Player21" ></video></div>
+        <div  id="le2" style="auto; float:left; margin-top:-5px; z-index:2; ">
+            <video  id="Player22" ></video></div>
+        <div  id="am2" style="auto; float:left; margin-top:-5px;z-index:-1 ">
+            <video  id="Player23" ></video></div>
+        <div  id="ri2" style="auto; float:left; margin-top:-5px;z-index:2; ">
+            <video  id="Player24" ></video></div> 
+        <div  id="pri2" style="auto; float:left; margin-top:-5px;z-index:2;">
+             <video  id="Player25" ></video></div> 
+       
+            
+        <div class="clear" ></div> 
+
+        
+        <div  id="ple3" style=" float:left;margin-top:-5px;z-index:2;">
+            <video id="Player31"  ></video></div>
+        <div  id="le3" style=" float:left;margin-top:-5px;z-index:2;">
+            <video  id="Player32"></video></div>
+        <div  id="am3" style="auto; float:left; margin-top:-5px;z-index:2;">
+            <video  id="Player33" ></video></div>
+        <div  id="ri3" style=" float:left;margin-top:-5px;z-index:2;">
+            <video id="Player34"></video></div>
+        <div  id="pri3" style=" float:left;margin-top:-5px;z-index:2;">
+            <video id="Player35"  ></video></div>
+        
+        <div class="clear" ></div> 
+
+        
+        <div  id="ple4" style=" float:left;margin-top:-5px;z-index:2;">
+            <video id="Player41"  ></video></div>
+        <div  id="le4" style=" float:left;margin-top:-5px;z-index:2;">
+            <video  id="Player42"></video></div>
+        <div  id="am4" style="auto; float:left; margin-top:-5px;z-index:2;">
+            <video  id="Player43" ></video></div>
+        <div  id="ri4" style=" float:left;margin-top:-5px;z-index:2;">
+            <video id="Player44"></video></div>
+        <div  id="pri4" style=" float:left;margin-top:-5px;z-index:2;">
+            <video id="Player45"  ></video></div>
+       
+            
+    </div>
+    <div style="position:absolute; margin-top:4000px z-index:7">
+    <!-- <div>Select: <input type="number"  ng-model="index" min="1" max="23"> -->
+        <button id = "e" ng-click="changeIndex()">Change </button>
+        <h4>Show: {{index}}      {{index+1}}     {{index+2}}</h4>
+        <h4>Show: {{index+8}}   {{index+9}}   {{index+10}}</h4>
+        <h4>Show: {{index+16}}  {{index+17}}  {{index+18}}</h4>
+        <h4 id="current"></h4>
+        <h4 id="current1"></h4>
+        <h4 id="current2"></h4>
+        <h4 id="current3"></h4>
+        <h4 id="current4"></h4>
+        <h4 id="mousetop"></h4>
+        <h4 id="mouseleft"></h4>
+        <h4 id="mouse"></h4>
+    </div>
+    <div>
+        <button style="position:absolute; margin-left:4000px" id = "c1" >Left </button>
+        <button style="position:absolute; margin-left:4100px" id = "c2" >Right </button>
+        <button style="position:absolute; margin-left:4200px" id = "c3" >On</button>
+        <button style="position:absolute; margin-left:4300px" id = "c4" >Down </button>
+
+    </div>
+        <script>
+            var url = "test.mpd";
+            window.srd = 3;
+            window.flag = 0;
+            window.column = 3;
+            window.row = 0;
+            window.add = 0;
+            window.sub = 0;
+            window.loadall=0;
+            (function(){
+                var player1 = dashjs.MediaPlayer().create();
+                    player1.initialize(document.querySelector("#Player12"), url, true); 
+
+                var player2 = dashjs.MediaPlayer().create();
+                    player2.initialize(document.querySelector("#Player13"), url, true);
+
+                var player3 = dashjs.MediaPlayer().create();
+                    player3.initialize(document.querySelector("#Player14"), url, true);
+
+                var player4 = dashjs.MediaPlayer().create();
+                    player4.initialize(document.querySelector("#Player22"), url, true);
+ 
+                var player5 = dashjs.MediaPlayer().create();
+                    player5.initialize(document.querySelector("#Player23"), url, true);
+
+                var player6 = dashjs.MediaPlayer().create();
+                    player6.initialize(document.querySelector("#Player24"), url, true);
+                
+                var player7 = dashjs.MediaPlayer().create();
+                    player7.initialize(document.querySelector("#Player32"), url, true);
+                
+                var player8 = dashjs.MediaPlayer().create();
+                    player8.initialize(document.querySelector("#Player33"), url, true);
+                
+                var player9 = dashjs.MediaPlayer().create();
+                    player9.initialize(document.querySelector("#Player34"), url, true);
+                // var player10 = dashjs.MediaPlayer().create();
+
+             
+                // player10.initialize(document.querySelector("#Player42"), url, true);
+                //     var player11 = dashjs.MediaPlayer().create();
+                // player11.initialize(document.querySelector("#Player43"), url, true);
+                //     var player12 = dashjs.MediaPlayer().create();
+   
+                // player12.initialize(document.querySelector("#Player44"), url, true);
+            })();
+
+            var app = angular.module('myApp', []);
+            app.controller('DashController', function($scope) {
+                $scope.index = 1;
+                $scope.changeIndex = function () 
+                {
+                    window.srd = $scope.index;
+                    window.flag =0;    
+                    var myVideo = document.getElementById('Player23');
+                    window.vTime = myVideo.currentTime;   
+                    console.log(window.vTime); 
+                // var player1 = dashjs.MediaPlayer().create();
+                    var player2 = dashjs.MediaPlayer().create();
+                // var player3 = dashjs.MediaPlayer().create();
+                    var player4 = dashjs.MediaPlayer().create();
+                    var player5 = dashjs.MediaPlayer().create();
+                    var player6 = dashjs.MediaPlayer().create();
+                // var player7 = dashjs.MediaPlayer().create();
+                    var player8 = dashjs.MediaPlayer().create();
+                // var player9 = dashjs.MediaPlayer().create();
+                    //player1.initialize(document.querySelector("#Player1"), url, true);
+                    player2.initialize(document.querySelector("#Player13"), url, true);
+                    //player3.initialize(document.querySelector("#Player3"), url, true);
+                    player4.initialize(document.querySelector("#Player22"), url, true);
+                    player5.initialize(document.querySelector("#Player23"), url, true);
+                    player6.initialize(document.querySelector("#Player24"), url, true);
+                // player7.initialize(document.querySelector("#Player7"), url, true);
+                    player8.initialize(document.querySelector("#Player33"), url, true);
+                    // player9.initialize(document.querySelector("#Player9"), url, true);
+
+                    var myVideo1 = document.getElementById('Player12');
+                    myVideo1.load();
+                    myVideo1.currentTime = window.vTime;
+
+                    var myVideo2 = document.getElementById('Player13');
+                    myVideo2.load();
+                    myVideo2.currentTime = window.vTime;
+
+                    var myVideo3 = document.getElementById('Player14');
+                    myVideo3.load();
+                    myVideo3.currentTime = window.vTime;
+
+                    var myVideo4 = document.getElementById('Player22');
+                    myVideo4.load();
+                    myVideo4.currentTime = window.vTime;
+
+                    var myVideo5 = document.getElementById('Player23');
+                    myVideo5.load();
+                    myVideo5.currentTime = window.vTime;
+
+                    var myVideo6 = document.getElementById('Player24');
+                    myVideo6.load();
+                    myVideo6.currentTime = window.vTime;
+                
+                    var myVideo7 = document.getElementById('Player32');
+                    myVideo7.load();
+                    myVideo7.currentTime = window.vTime;
+
+                    var myVideo8 = document.getElementById('Player33');
+                    myVideo8.load();
+                    myVideo8.currentTime = window.vTime;
+
+                    var myVideo9 = document.getElementById('Player34');
+                    myVideo9.load();
+                    myVideo9.currentTime = window.vTime;
+            };
+
+                
+            });
+            var o,   //捕获到的事件
+            X,  //box水平宽度
+            Y;  //box垂直高度
+            function getObject(obj,e){    //获取捕获到的对象
+            o = obj;
+            // document.all（IE）使用setCapture方法绑定；其余比如FF使用Window对象针对事件的捕捉
+            document.all?o.setCapture() : window.captureEvents(Event.MOUSEMOVE);  
+            X = e.clientX - parseInt(o.style.left);   //获取宽度，
+            Y = e.clientY - parseInt(o.style.top);   //获取高度，
+            //    alert(e.clientX+"  -- " + o.style.left+" -- "+ X);
+            }
+
+            document.getElementById("c").onmousedown = function(e){ 
+            getObject(this,e||event);       //box捕获事件并处理  e-->FF  window.event-->IE
+            };
+            document.onmousemove = function(dis){    //鼠标移动事件处理
+           
+            if(!o){    //如果未获取到相应对象则返回
+            return;
+            }
+            if(!dis){  //事件
+            dis = event ;
+            //    dis = arguments[0]||window.event;   //如果上面那句在FF下无法获取事件，听说可以通过 arguments[0]获取FF下的事件对象
+            }
+         
+        
+            // if(window.loadall){ 
+            // if ($("#am"+(window.row+2)).offset().left>1200)MoveLeft();
+            // if ($("#am"+(window.row+2)).offset().left<100)MoveRight();
+            // if ($("#am"+(window.row+2)).offset().top>1200)MoveOn();
+            // if ($("#am"+(window.row+2)).offset().top<100)MoveDown();
+
+            // }
+            o.style.left = dis.clientX - X +"px";     //设定box样式随鼠标移动而改变
+            if($("#am4").offset().top<=2560&&$("#am4").offset().top>=640) o.style.top = dis.clientY - Y + "px";
+                else if($("#am4").offset().top<640) o.style.top="-1280px";
+                else if($("#am4").offset().top>2560) o.style.top="600px";
+            document.getElementById("mousetop").innerHTML = "Mouse="+o.style.top;
+            if(o.style.top>(40+'px'))  document.getElementById("mouse").innerHTML =o.style.top;
+            document.getElementById("mouseleft").innerHTML = "Mouse="+o.style.left;
+
+            };
+            document.onmouseup = function(){    //鼠标松开事件处理
+            if(!o){   //如果未获取到相应对象则返回
+            return;
+            }
+            // document.all（IE）使用releaseCapture解除绑定；其余比如FF使用window对象针对事件的捕捉
+            document.all?o.releaseCapture() : window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP)
+            o = '';   //还空对象
+            };
+            function mycur(){
+            var myVideo = document.getElementById('Player4');
+            myVideo.currentTime = window.vTime;
+            }
+    
+    jQuery (function ($)
+    {   
+        $("#c1").click (function (){document.getElementById("c").style.left=(parseInt(document.getElementById("c").style.left)+50)+"px" ;if(loadall)check();})
+        $("#c2").click (function (){document.getElementById("c").style.left=(parseInt(document.getElementById("c").style.left)-50)+"px" ;if(loadall)check();})
+        $("#c3").click (function (){document.getElementById("c").style.top=(parseInt(document.getElementById("c").style.top)+50)+"px" ;if(loadall)check();})
+        $("#c4").click (function (){document.getElementById("c").style.top=(parseInt(document.getElementById("c").style.top)-50)+"px" ;if(loadall)check();})
+        $("#c").click (function ()
+        {   check();
+            //console.log($("#le"+window.row).offset().left)
+        //    if( document.getElementById("mouseleft").innerHTML>(99+'px')) MoveRight();
+        //    if( document.getElementById("mousetop").innerHTML>(99+'px')) MoveOn();
+        });
+        
+    });
+
+    function MoveRight(){
+        if(window.loadall){
+            document.getElementById("c").style.left=(parseInt(document.getElementById("c").style.left)+640)+"px";
+            console.log(parseInt(document.getElementById("c").style.left));
+            window.loadall=0;
+            console.log("Right");
+            window.flag = 10;
+            window.column+=1; 
+            window.srd = (window.column+2)%8+window.row*8;
+            $("div").remove("#le1");
+            $("div").remove("#le2");
+            $("div").remove("#le3");
+            $("div").remove("#le4");
+           
+            document.getElementById("Player1"+(window.column+5)%8).id = "Player1"+(window.column+6)%8; 
+            document.getElementById("Player2"+(window.column+5)%8).id = "Player2"+(window.column+6)%8;     
+            document.getElementById("Player3"+(window.column+5)%8).id = "Player3"+(window.column+6)%8;     
+            document.getElementById("Player4"+(window.column+5)%8).id = "Player4"+(window.column+6)%8;         
+            document.getElementById("am1").id = 'le1';
+            document.getElementById("am2").id = 'le2';
+            document.getElementById("am3").id = 'le3';
+            document.getElementById("am4").id = 'le4';
+            document.getElementById("ri1").id = 'am1';
+            document.getElementById("ri2").id = 'am2';
+            document.getElementById("ri3").id = 'am3';
+            document.getElementById("ri4").id = 'am4';
+            document.getElementById("pri1").id = 'ri1';
+            document.getElementById("pri2").id = 'ri2';
+            document.getElementById("pri3").id = 'ri3';
+            document.getElementById("pri4").id = 'ri4';
+
+            window.column%=8;
+            $("#ri1").after( "<div  id = \"pri1\" style=\"auto; float:left; \" ><video id=\"Player1"+(window.column+2)%8+"\" ></video></div>");
+            $("#ri2").after( "<div  id = \"pri2\" style=\"auto; float:left; margin-top:-5px; \" ><video id=\"Player2"+(window.column+2)%8+"\" ></video></div>");
+            $("#ri3").after( "<div  id = \"pri3\" style=\"auto; float:left; margin-top:-5px; \" ><video id=\"Player3"+(window.column+2)%8+"\" ></video></div>");
+            $("#ri4").after( "<div  id = \"pri4\" style=\"auto; float:left; margin-top:-5px; \" ><video id=\"Player4"+(window.column+2)%8+"\" ></video></div>");
+            // var myVideo44 = document.getElementById('PlayerR4');
+            //var myVideo = document.getElementById('Player23');
+
+            var preplayer1 = dashjs.MediaPlayer().create();
+            var preplayer2 = dashjs.MediaPlayer().create();
+            var preplayer3 = dashjs.MediaPlayer().create();
+           // var preplayer4 = dashjs.MediaPlayer().create();
+            var myVideo = document.getElementById("Player2"+window.column);     
+            preplayer1.initialize(document.querySelector("#Player"+(1+window.row)+(window.column+1)%8), url, true);
+            var myVideo11 = document.getElementById("Player"+(1+window.row)+(window.column+1)%8);
+            myVideo11.load();
+            myVideo11.currentTime = myVideo.currentTime;
+            preplayer2.initialize(document.querySelector("#Player"+(2+window.row)+(window.column+1)%8), url, true);
+            var myVideo22 = document.getElementById("Player"+(2+window.row)+(window.column+1)%8);
+            myVideo22.load();
+            myVideo22.currentTime = myVideo.currentTime;
+            preplayer3.initialize(document.querySelector("#Player"+(3+window.row)+(window.column+1)%8), url, true);
+            var myVideo33 = document.getElementById("Player"+(3+window.row)+(window.column+1)%8);
+            myVideo33.load();
+            myVideo33.currentTime = myVideo.currentTime;
+           
+            
+        }  
+    }
+    function MoveLeft()
+    {   
+        if(window.loadall){
+            document.getElementById("c").style.left=(parseInt(document.getElementById("c").style.left)-640)+"px";
+            console.log(parseInt(document.getElementById("c").style.left));
+            window.loadall=0;
+            console.log("left");
+            window.flag = 20;
+            window.column =(window.column+7)%8; 
+            window.srd = window.column+window.row*8;
+
+            $("div").remove("#ri1");
+            $("div").remove("#ri2");
+            $("div").remove("#ri3");
+            $("div").remove("#ri4");
+            
+            document.getElementById("Player1"+(window.column+3)%8).id = "Player1"+(window.column+2)%8; 
+            document.getElementById("Player2"+(window.column+3)%8).id = "Player2"+(window.column+2)%8;     
+            document.getElementById("Player3"+(window.column+3)%8).id = "Player3"+(window.column+2)%8;     
+            document.getElementById("Player4"+(window.column+3)%8).id = "Player4"+(window.column+2)%8;        
+
+            document.getElementById("am1").id = 'ri1';
+            document.getElementById("am2").id = 'ri2';
+            document.getElementById("am3").id = 'ri3';
+            document.getElementById("am4").id = 'ri4';
+            document.getElementById("le1").id = 'am1';
+            document.getElementById("le2").id = 'am2';
+            document.getElementById("le3").id = 'am3';
+            document.getElementById("le4").id = 'am4';
+            document.getElementById("ple1").id = 'le1';
+            document.getElementById("ple2").id = 'le2';
+            document.getElementById("ple3").id = 'le3';
+            document.getElementById("ple4").id = 'le4';
+            window.column%=8;
+            $("#le1").before( "<div  id = \"ple1\" style=\"auto; float:left; \" ><video id=\"Player1"+(window.column+6)%8+"\" ></video></div>");
+            $("#le2").before( "<div  id = \"ple2\" style=\"auto; float:left; margin-top:-5px; \" ><video id=\"Player2"+(window.column+6)%8+"\" ></video></div>");
+            $("#le3").before( "<div  id = \"ple3\" style=\"auto; float:left; margin-top:-5px; \" ><video id=\"Player3"+(window.column+6)%8+"\" ></video></div>");
+            $("#le4").before( "<div  id = \"ple4\" style=\"auto; float:left; margin-top:-5px; \" ><video id=\"Player4"+(window.column+6)%8+"\" ></video></div>");
+            var preplayer1 = dashjs.MediaPlayer().create();
+            var preplayer2 = dashjs.MediaPlayer().create();
+            var preplayer3 = dashjs.MediaPlayer().create();
+            // var preplayer4 = dashjs.MediaPlayer().create()
+            var myVideo = document.getElementById("Player2"+window.column);     
+            preplayer1.initialize(document.querySelector("#Player"+(1+window.row)+(window.column+7)%8), url, true);
+            var myVideo11 = document.getElementById("Player"+(1+window.row)+(window.column+7)%8);
+            myVideo11.load();
+            myVideo11.currentTime = myVideo.currentTime;
+            preplayer2.initialize(document.querySelector("#Player"+(2+window.row)+(window.column+7)%8), url, true);
+            var myVideo22 = document.getElementById("Player"+(2+window.row)+(window.column+7)%8);
+            myVideo22.load();
+            myVideo22.currentTime = myVideo.currentTime;
+            preplayer3.initialize(document.querySelector("#Player"+(3+window.row)+(window.column+7)%8), url, true);
+            var myVideo33 = document.getElementById("Player"+(3+window.row)+(window.column+7)%8);
+            myVideo33.load();
+            myVideo33.currentTime = myVideo.currentTime;
+            
+            
+        }  
+    }
+    function MoveOn(){
+        if(window.row==1&&window.loadall){
+         
+            console.log("On");
+            window.flag = 30;
+            window.row = 0;
+            window.srd = window.column%8;
+            console.log('!'+window.row+window.column);
+            
+            $("div").remove("#ri4");
+            $("div").remove("#am4");
+            $("div").remove("#le4");
+            
+            $("#ple4").after( "<div   id=\"ri4\" style=\"auto; float:left; \" ><video id=\"Player4"+(window.column+1)%8+"\" ></video></div>").after( "<div   id=\"am4\" style=\"auto; float:left; \" ><video id=\"Player4"+(window.column)%8+"\" ></video></div>").after( "<div   id=\"le4\" style=\"auto; float:left; \" ><video id=\"Player4"+(window.column+7)%8+"\" ></video></div>");
+            // if(window.row!=1) 
+            // {
+            // document.getElementById("ri"+(window.row+1)).style.marginTop="-5px";
+            // document.getElementById("le"+(window.row+1)).style.marginTop="-5px";
+            // }
+            var myVideo = document.getElementById("Player2"+window.column);
+
+            var preplayer1 = dashjs.MediaPlayer().create();
+            preplayer1.initialize(document.querySelector("#Player1"+(window.column+7)%8), url, true);
+            var myVideo11 = document.getElementById("Player1"+(window.column+7)%8);
+            myVideo11.load();
+            myVideo11.currentTime = myVideo.currentTime;
+
+            var preplayer2 = dashjs.MediaPlayer().create();
+            preplayer2.initialize(document.querySelector("#Player1"+(window.column)%8), url, true);
+            var myVideo22 = document.getElementById("Player1"+(window.column)%8);
+            myVideo22.load();
+            myVideo22.currentTime = myVideo.currentTime; 
+
+            var preplayer3 = dashjs.MediaPlayer().create();
+            preplayer3.initialize(document.querySelector("#Player1"+(window.column+1)%8), url, true);
+            var myVideo33 = document.getElementById("Player1"+(window.column+1)%8);
+            myVideo33.load();
+            myVideo33.currentTime = myVideo.currentTime;  
+            
+        }  
+    }
+    function MoveDown(){
+        if(window.row==0&&window.loadall){
+   
+            console.log("Down");
+            window.flag = 40;
+            window.row = 1;
+            window.srd =(window.column+7)%8+25;
+            
+            $("div").remove("#ri1");
+            $("div").remove("#am1");
+            $("div").remove("#le1");
+            $("#ple1").after( "<div   id=\"ri1\" style=\"auto; float:left; \" ><video id=\"Player1"+(window.column+1)%8+"\" ></video></div>").after( "<div   id=\"am1\" style=\"auto; float:left; \" ><video id=\"Player1"+(window.column)%8+"\" ></video></div>").after( "<div   id=\"le1\" style=\"auto; float:left; \" ><video id=\"Player1"+(window.column+7)%8+"\" ></video></div>");
+
+            // $("#am"+(window.row-1)).after( "<div   id=\"ri"+(window.row-1)+"\" style=\"auto; float:left; margin-top:-5px; \" ><video id=\"Player"+(window.row-1)+(window.column+1)%8+"\" ></video></div>");
+            // $("#am"+(window.row-1)).before( "<div   id=\"le"+(window.row-1)+"\" style=\"auto; float:left; margin-top:-5px; \" ><video id=\"Player"+(window.row-1)+(window.column+7)%8+"\" ></video></div>");
+            //  if(window.row==2)
+            //  {
+            //     document.getElementById("ri"+(window.row-1)).style.marginTop="0px";
+            //     document.getElementById("le"+(window.row-1)).style.marginTop="0px";
+            //  }
+
+            var myVideo = document.getElementById('Player2'+window.column);
+            var preplayer1 = dashjs.MediaPlayer().create();
+            preplayer1.initialize(document.querySelector("#Player4"+(window.column+7)%8), url, true);
+            var myVideo11 = document.getElementById("Player4"+(window.column+7)%8);
+            myVideo11.load();
+            myVideo11.currentTime = myVideo.currentTime;
+            var preplayer2 = dashjs.MediaPlayer().create();
+            preplayer2.initialize(document.querySelector("#Player4"+(window.column)%8), url, true);
+            var myVideo22 = document.getElementById("Player4"+(window.column)%8);
+            myVideo22.load();
+            myVideo22.currentTime = myVideo.currentTime;  
+             var preplayer3 = dashjs.MediaPlayer().create();
+            preplayer3.initialize(document.querySelector("#Player4"+(window.column+1)%8), url, true);
+            var myVideo33 = document.getElementById("Player4"+(window.column+1)%8);
+            myVideo33.load();
+            myVideo33.currentTime = myVideo.currentTime;  
+        }  
+    }
+    function check(){
+        if ($("#am"+(window.row+2)).offset().left>1200)MoveLeft();
+        if ($("#am"+(window.row+2)).offset().left<100)MoveRight();
+        if ($("#am"+(window.row+2)).offset().top>1200)MoveOn();
+        if ($("#am"+(window.row+2)).offset().top<100)MoveDown();
+    }
+        </script>
+</body>
+</html>
